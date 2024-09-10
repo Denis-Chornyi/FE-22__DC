@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import UserTable from './UserTable.jsx';
+import Auth from './Auth.jsx';
 
 const rootElement = document.querySelector('#root');
 
-ReactDOM.render(<UserTable />, rootElement);
+ReactDOM.render(<Auth />, rootElement);
 
 // REACT APPROACH (!!!)
 // 1. Divide the UI into components +++
