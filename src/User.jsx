@@ -1,49 +1,77 @@
-import React from 'react';
+// import { useParams } from 'react-router-dom';
+// import { useEffect, useState } from 'react';
 
-class User extends React.Component {
+// const User = () => {
+//   const [userData, setUserData] = useState({
+//     avatar_url: null,
+//     name: null,
+//     location: null
+//   });
 
-  state = {
+//   const { userId } = useParams();
+
+//   useEffect(() => {
+//     fetch(`https://api.github.com/users/${userId}`)
+//       .then(response => response.json())
+//       .then(({ avatar_url, name, location }) =>
+//         setUserData({
+//           avatarUrl: avatar_url,
+//           name,
+//           location
+//         })
+//       );
+//   }, [userId]);
+//   const { avatar_url, name, location } = userData;
+//   return (
+//     <div className="user">
+//       <img alt="User Avatar" src={avatar_url} className="user__avatar" />
+//       <div className="user__info">
+//         <span className="user__name">{name}</span>
+//         <span className="user__location">{location}</span>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // TODO update solutiuins here
+
+// export default User;
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+const User = () => {
+  const { userId } = useParams();
+  const [user, setUser] = useState({
     avatarUrl: null,
     name: null,
-    location: null
-  }
-  componentDidMount() {
-    this.getUser(this.props.match.params.userId)
-  }
+    location: null,
+  });
 
-  componentDidUpdate(prevProps) {
-    if(prevProps.match.params.userId !==this.props.match.params.userId) {
-    this.getUser(this.props.match.params.userId)
-    }
-  }
-
-  getUser(userId) {
+  useEffect(() => {
     fetch(`https://api.github.com/users/${userId}`)
-    .then(res => res.json())
-    .then(({ avatar_url, name, location}) => {
-      this.setState({avatarUrl: avatar_url, name, location})
-    })
-  }
+      .then(response => response.json())
+      .then(({ avatar_url, name, location }) =>
+        setUser({
+          avatarUrl: avatar_url,
+          name,
+          location,
+        }),
+      );
+  }, [userId]);
 
-  render() {
+  const { avatarUrl, name, location } = user;
+  if (avatarUrl === null || name === null || location === null) return null;
 
-    const {avatarUrl, name, location} = this.state
-
-    if(avatarUrl === null || name === null || location === null) {
-      return <div className=''>Loading...</div>
-    }
-
-    return (
-      <div className="user">
-        <img alt="User Avatar" src={avatarUrl} className="user__avatar" />
-        <div className="user__info">
-          <span className="user__name">{name}</span>
-          <span className="user__location">{location}</span>
-        </div>
+  return (
+    <div className="user">
+      <img src={avatarUrl} className="user__avatar" alt="User Avatar" />
+      <div className="user__info">
+        <span className="user__name">{name}</span>
+        <span className="user__location">{location}</span>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 // TODO update solutiuins here
 

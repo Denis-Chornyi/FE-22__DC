@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Users from './Users';
 import Home from './Home';
 
 const App = () => (
-  <div className="page">
-    <Router>
+  <Router>
+    <div className="page">
       <ul className="navigation">
         <li className="navigation__item">
           <Link to="/">Home</Link>
@@ -14,14 +14,13 @@ const App = () => (
           <Link to="/users">Users</Link>
         </li>
       </ul>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/users" component={Users} />
-      </Switch>
-    </Router>
-  </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users/*" element={<Users />} />
+        <Route path="*" element={<div className="error">Error: Page not found</div>} />
+      </Routes>
+    </div>
+  </Router>
 );
 
 export default App;
