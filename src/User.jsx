@@ -1,3 +1,4 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -21,10 +22,10 @@ const User = () => {
         })
       );
   }, [userId]);
-  const { avatar_url, name, location } = userData;
+  const { avatarUrl, name, location } = userData;
   return (
     <div className="user">
-      <img alt="User Avatar" src={avatar_url} className="user__avatar" />
+      <img alt="User Avatar" src={avatarUrl} className="user__avatar" />
       <div className="user__info">
         <span className="user__name">{name}</span>
         <span className="user__location">{location}</span>
